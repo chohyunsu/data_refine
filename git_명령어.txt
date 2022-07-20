@@ -1,0 +1,101 @@
+git bash  명령어 정리 
+
+1. 현재 설정 확인 
+git config --list
+
+2. git config --global user.name "chohyunsu"
+
+3. git config --global user.email "guswo1996@naver.com" 
+
+4. git init
+
+5. git status 
+
+6. git add * 
+
+  git reset HEAD  ->  add한 파일 전체 취소
+  git reset HEAD 파일명  -> 해당파일 Unstaged 상태 변경 
+
+7. git commit -m "커밋 메시지"
+
+   git commit --amend   // 커밋 메시지 변경 
+
+   git log   //  commit 목록 확인 
+   git reset --soft HEAD^     //  commit을 취소하고 해당 파일들은 staged 상태로 워킹 디렉터리에 보존
+   git reset --mixed HEAD^   // commit을 취소하고 해당 파일들은 unstaged 상태로 워킹 디렉토리에 보존(기본옵션)
+   git reset HEAD^    // 기본옵션과 동일 
+   git reset HEAD~2  // 마지막 2개의 commit을 취소 
+   git reset --hard HEAD^   // commit을 취소하고 해당 파일들은 unstaged 상태로 워킹 디렉토리에서 삭제 
+   git reset --hard HEAD    // 워킹 디렉토리를 원격 저장소의 마지막 commit 상태로 되돌린다. 
+   
+ 
+
+로컬 저장소와 깃헙 저장소 연결 
+8. git remote add origin https://github.com/chohyunsu/data_refine.git
+
+9. git remote -v
+
+10. git push --set-upstream origin master   or  git push origin master  (새로 레포지토리 만들었는데 브랜치가 안만들어진경우 --set-upstream 필요)
+
+11. git branch second_branch     // second_branch 이름의 브랜치 생성
+
+12. git switch second_branch    // git checkout 으로 브랜치 이동가능 (checkout : switch + resotre)   git checkout -b 브랜치명
+
+  git checkout -b 브랜치명  // 브랜치 생성하면서 이동 
+
+13. git restore REAEME.md    //  파일을 수정했다고 했을때 복원, 수정내용을 stage에 이미 넣었을때 다시 빼는것도 restore 
+
+14. git merge second_branch   
+
+15. git rebase sencond_branch 
+
+
+git remote update     // git 브랜치가 목록에서 보이지 않을 때...
+
+git branch  (로컬 브랜치 목록 조회)
+git branch -r (원격 브랜치 목록 조회)
+git branch -a (모든 브랜치 목록 조회) 
+
+git log --oneline      // 로컬 브랜치와 원격브랜치의 최종 커밋을 확인 가능 
+
+git pull -> git fetch + merge   (fetch : 원격저장소의 내용을 가져와 로컬데이터와 병합은 안함. FETCH_HEAD의 의 이름없는 브랜치로 로컬에 가져오게됨) 
+
+git branch 브랜치명    //  로컬 브랜치 생성 
+
+git push origin 브랜치명   // 원격 브랜치 생성 
+
+git branch --set-upstream-to origin/브랜치명    //  원격 브랜치와 로컬 브랜치 연동 
+
+git branch --delete 브랜치명      // 로컬 브랜치 삭제 (다른 브랜치에서 가능) (작업된 사항이나 commit한 이력이 남아있는경우 삭제안됨)
+
+git branch -D 브랜치명      //  로컬 브랜치 강제삭제 
+
+git push origin :브랜치명     //  원격(remote) 브랜치 삭제 
+
+git checkout -b 브랜치명 master   // 로컬의 master 브랜치 기준으로 새로운 브랜치 생성 
+ 
+git checkout -b 브랜치명 origin/브랜치명  // 원격 브랜치가 이미 존재할경우 원격 브랜치를 기준으로 로컬브랜치 생성 
+
+git push origin 브랜치명   //  local 브랜치를 원격 저장소로 push 
+
+
+git checkout -b 로컬브랜치명 origin/원격브랜치명         //  원격 브랜치를 기준으로 새로운 로컬브랜치 생성 
+
+git checkout --track origin/원격브랜치명         //  로컬브랜치 이름을 짓지않고 remote 저장소의 브랜치 이름을 그대로 로컬브랜치로 생성 
+git checkout -t origin/원격브랜치명         //  로컬브랜치 이름을 짓지않고 remote 저장소의 브랜치 이름을 그대로 로컬브랜치로 생성 
+
+
+
+pull과 clone의 차이 
+remote 설정을 자동으로 하나 안되나의 차이
+1,2 두 명령어는 같은 효과를 가짐. 
+1. git clone {{URL}}
+2. git init + git remote add origin {{URL}} + git pull origin master   
+
+git init : git 프로젝트를 시작 
+git remote add origin {{URL}} : url을 원격 리포지토리로 지정 
+git pull origin master : 원격 리포지토리를 현재 master (로컬브랜치)에 병합 
+
+
+git clone은 리모트 설정을 자동으로 해주는 초기 다운로드시 사용 
+git pull은 리모트 설정이 이미 되어있을때 업데이트 사항등을 다운로드할때 사용 

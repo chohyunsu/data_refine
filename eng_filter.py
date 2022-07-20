@@ -6,8 +6,6 @@ import re
 import pandas as pd
 
 reg = re.compile(r"[a-zA-Z]")
-ba = ["companyname", "name"]
-new_list = []
 
 with open("./all_data.csv", "r", encoding="utf-8", newline='') as f:
     wr = csv.reader(f)
